@@ -1,0 +1,27 @@
+name: CI
+
+# Runs the project's own gates — the exact same ./verify.sh that every
+# milestone (M1, M2, M3) had to pass locally. Python 3.12, charter
+# dependencies only, no network beyond pip itself.
+on:
+  push:
+  pull_request:
+
+jobs:
+  gates:
+    name: verify.sh gates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install charter dependencies
+        run: pip install scikit-learn joblib scipy pytest
+
+      - name: Run the project gates
+        run: ./verify.sh
