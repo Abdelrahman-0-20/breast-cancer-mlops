@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+import pandas as pd
 
 import app
 from mlops.data import load_breast_cancer
@@ -48,6 +49,17 @@ def test_verdict_text_is_ascii_and_mentions_class():
         assert text.isascii(), "verdict must stay ascii (no emojis)"
     assert "malignant" in app.verdict_text(1, 0.93)
     assert "benign" in app.verdict_text(0, 0.93)
+
+
+def test_feature_distribution_has_string_index():
+    """Bin labels must be strings so Altair can serialize the chart."""
+    X, y, names = load_breast_cancer()
+    frame = app.feature_frame(X, y, names)
+    grouped = app.feature_distribution(frame, names[0])
+    assert pd.api.types.is_string_dtype(grouped.index)
+    assert all(isinstance(i, str) for i in grouped.index)
+    assert set(grouped.columns) <= {"benign", "malignant"}
+    assert int(grouped.to_numpy().sum()) == 569
 
 
 def test_predict_one_agrees_with_model():
