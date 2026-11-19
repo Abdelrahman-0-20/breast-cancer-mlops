@@ -3,7 +3,7 @@
 set -euo pipefail
 
 echo "-- compileall"
-python3 -m compileall -q mlops tests
+python3 -m compileall -q mlops tests app.py
 
 if command -v ruff >/dev/null 2>&1; then
   echo "-- ruff"

@@ -8,6 +8,24 @@ Dataset: **sklearn's built-in breast-cancer dataset** (zero network, fully deter
 
 ---
 
+## Web app
+
+A Streamlit app with three tabs, reusing the mlops package for all data,
+training, registry and evaluation logic:
+
+```bash
+python3 -m pip install -r requirements.txt   # streamlit
+streamlit run app.py
+```
+
+- **EDA** — class distribution, per-feature distribution by class, correlation matrix
+- **Model** — holdout accuracy / ROC-AUC against the config thresholds, pass or fail, confusion matrix
+- **Predict** — all 30 feature inputs (dataset means as defaults), probability and class verdict
+
+Deployable as-is on Streamlit Community Cloud (public repo, main file `app.py`).
+
+---
+
 ## Quickstart — Python 3 only (there is no bare `python` on this machine)
 
 ```bash
