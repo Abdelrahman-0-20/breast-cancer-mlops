@@ -1,3 +1,7 @@
-# Web app dependency. The core pipeline dependencies come from the
-# install line in README.md (scikit-learn pulls in numpy and pandas).
+# Full runtime dependency set for the web app and the mlops package.
+# Streamlit Community Cloud installs strictly from this file (the README
+# install line covers local development only).
 streamlit>=1.67
+scikit-learn
+joblib
+scipy
