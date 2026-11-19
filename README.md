@@ -123,3 +123,7 @@ CI runs exactly these gates: `.github/workflows/ci.yml` sets up Python 3.12, ins
 - Python 3 only (there is no bare `python` on this machine), dependencies limited to **scikit-learn, joblib, scipy, pytest** — nothing downloaded, ever.
 - A milestone is done only when `./verify.sh` exits 0 — no stubs, no skipped-by-default tests, no weakened thresholds.
 - Each milestone ends with one descriptive commit; the history is the case-study evidence.
+
+---
+
+[![](https://img.shields.io/badge/powered_by-dsh-4D6BFE?style=flat-square&logo=deepseek&logoColor=white)](https://github.com/deepseek-ai/deepseek-harness)
