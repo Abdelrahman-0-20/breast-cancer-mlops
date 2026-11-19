@@ -21,7 +21,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install charter dependencies
-        run: pip install scikit-learn joblib scipy pytest
+        run: pip install scikit-learn joblib scipy pytest -r requirements.txt
 
       - name: Run the project gates
         run: ./verify.sh
