@@ -45,6 +45,16 @@ def correlation_table(frame: pd.DataFrame, feature_names: list[str]) -> pd.DataF
     return frame[list(feature_names)].corr().round(2)
 
 
+def feature_distribution(frame: pd.DataFrame, feature: str) -> pd.DataFrame:
+    """Counts per class for binned feature values.
+
+    Bin labels are plain strings on purpose: an IntervalIndex cannot be
+    serialized by Altair and makes st.bar_chart raise a schema error.
+    """
+    binned = pd.cut(frame[feature], bins=15).astype(str)
+    return frame.groupby([binned, "class"], observed=True).size().unstack(fill_value=0)
+
+
 def confusion_table(y_true: np.ndarray, y_pred: np.ndarray) -> pd.DataFrame:
     """2x2 confusion matrix with readable labels."""
     matrix = confusion_matrix(y_true, y_pred, labels=[0, 1])
@@ -130,9 +140,7 @@ def main() -> None:
         st.subheader("Feature distribution by class")
         feature = st.selectbox("Feature", names)
         frame = feature_frame(X, y, names)
-        binned = pd.cut(frame[feature], bins=15)
-        grouped = frame.groupby([binned, "class"], observed=True).size().unstack(fill_value=0)
-        st.bar_chart(grouped)
+        st.bar_chart(feature_distribution(frame, feature))
 
         st.subheader("Correlation matrix")
         st.dataframe(correlation_table(frame, names), use_container_width=True)

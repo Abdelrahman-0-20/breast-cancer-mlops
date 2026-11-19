@@ -1,7 +1,8 @@
 # Full runtime dependency set for the web app and the mlops package.
-# Streamlit Community Cloud installs strictly from this file (the README
-# install line covers local development only).
-streamlit>=1.67
+# Streamlit Cloud installs strictly from this file (the README install line
+# covers local development only). Pinned to the version the gates pass on;
+# Python 3.12 matches CI (set it in Advanced settings when deploying).
+streamlit==1.67.0
 scikit-learn
 joblib
 scipy
